@@ -1,0 +1,42 @@
+.roulette-container {
+    width: 400px;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+  
+.roulette {
+    display: flex;
+    flex-direction: column;
+    transition: transform 1s ease-in-out;
+}
+  
+.roulette-item {
+    padding: 10px;
+    text-align: center;
+    background: #f2f2f2;
+    margin: 5px 0;
+}
+  
+.spinning {
+    animation: spin 0.2s linear infinite; /* Rápido giro continuo */
+}
+  
+@keyframes spin {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+}
+  
+.result {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2em;
+    color: #008000;
+}
+  
+
+  

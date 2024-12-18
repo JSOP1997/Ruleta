@@ -32,9 +32,15 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/slick-carousel/slick/slick.css",
+              "node_modules/slick-carousel/slick/slick-theme.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/slick-carousel/slick/slick.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -98,5 +104,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "9b34ad57-69b1-4bb6-a0dd-f1f249520582"
   }
 }

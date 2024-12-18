@@ -1,0 +1,23 @@
+<div class="row justify-content-center">
+    <div class="roulette-container col-12 mb-3 px-5">
+        <div class="roulette" [ngClass]="spinClass">
+            <!-- Indicador de la ruleta -->
+            <div class="roulette-indicator"></div>
+        
+            <!-- Mostrar las personas dentro de la ruleta -->
+            <div *ngFor="let item of items; let i = index" 
+                 class="roulette-item">
+              {{ item }}
+            </div>
+        </div>
+    </div>
+    <div *ngIf="selectedPerson" class="result col-12">
+        <p><strong>¡Seleccionado!</strong> {{ selectedPerson }}</p>
+    </div>
+    <div class="col-12 mb-3 text-center">
+        <button class="btn btn-primary" (click)="startSpin()">Girar</button>
+    </div>
+      
+    
+</div>
+  

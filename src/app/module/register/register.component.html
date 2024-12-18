@@ -1,0 +1,67 @@
+<div
+    class="container"
+>
+    <div
+        class="row justify-content-center align-items-center vh-90 g-2"
+    >
+        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-body py-5">
+                    <h4 class="card-title text-center mb-3">Asistencia</h4>
+                    <form #form="ngForm" (ngSubmit)="onSubmit()" novalidate>
+                        <div class="mb-3 px-5">
+                            <label for="documento" class="form-label">Documento</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="documento"
+                                id="documento"
+                                aria-describedby="documentoHelp"
+                                placeholder="Ingrese su documento"
+                                [(ngModel)]="document"
+                                #documentoCtrl="ngModel"
+                                required
+                                minlength="6"
+                                maxlength="12"
+                                pattern="^[0-9]+$"
+                            />
+                            <small id="documentoHelp" class="form-text text-muted">
+                                Ingrese solo números entre 6 y 12 caracteres.
+                            </small>
+                    
+                            <!-- Mensajes de error -->
+                            <div *ngIf="documentoCtrl.invalid && documentoCtrl.touched" class="text-danger">
+                                <div *ngIf="documentoCtrl.errors?.['required']">
+                                    El documento es obligatorio.
+                                </div>
+                                <div *ngIf="documentoCtrl.errors?.['minlength']">
+                                    El documento debe tener al menos 6 caracteres.
+                                </div>
+                                <div *ngIf="documentoCtrl.errors?.['maxlength']">
+                                    El documento no puede tener más de 12 caracteres.
+                                </div>
+                                <div *ngIf="documentoCtrl.errors?.['pattern']">
+                                    El documento solo puede contener números.
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="mb-3 px-5 text-center">
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                [disabled]="form.invalid"
+                            >
+                                <i class="pi pi-check"></i>
+                                Asistir
+                            </button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+

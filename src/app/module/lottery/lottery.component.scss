@@ -1,0 +1,58 @@
+.file-drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    text-align: center;
+  }
+  
+  .file-drop-area:hover {
+    border-color: #007bff;
+  }
+  
+  .file-drop-area i {
+    font-size: 4rem;
+    color: #aaa;
+    margin-bottom: 0.5rem;
+  }
+  
+  .file-drop-area p {
+    font-size: 1rem;
+    color: #777;
+    font-weight: bold;
+  }
+  
+  .file-drop-area b {
+    color: #007bff;
+  }
+  
+  .file-drop-area .file-name {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    color: #555;
+  }
+
+.img-gifts {
+    width: 15%;
+    position: relative;
+    top: -160px;
+    right: -180px;
+}
+
+.participants {
+    height: 400px;
+}
+
+@media(max-width: 500px) {
+    .img-gifts {
+        width: 20%;
+        position: relative;
+        top: -160px;
+        right: -140px;
+    }
+}
