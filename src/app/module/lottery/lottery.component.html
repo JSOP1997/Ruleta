@@ -10,34 +10,23 @@
       >
         <div class="col-12">
             <div class="card">
+                <img src="./regalo.png" class="img-gifts" alt="regalos akpo">
                 <div class="card-body pt-5">
                     <h4 class="card-title text-center">Regalos</h4>
-                    <p class="card-text">Text</p>
+                    <app-gifts
+                      (sendType)="getLotteryType($event)"
+                    ></app-gifts>
                 </div>
-                <img src="./regalo.png" class="img-gifts" alt="regalos akpo">
+                
             </div>
         </div>
         <div class="col-12">
           <div class="card participants">
             <div class="card-body">
               <h4 class="card-title text-center">Participantes</h4>
-              <!-- <div class="file-drop-area mb-3" (click)="triggerFileInput()">
-                <i class="pi pi-cloud-upload"></i>
-                <p *ngIf="!fileName">Cargar Participantes (.xlsx)</p>
-                <span *ngIf="fileName" class="file-name text-muted">
-                  {{ fileName }}
-                </span>
-                <input 
-                  type="file" 
-                  #fileInput 
-                  (change)="onFileChange($event)" 
-                  accept=".xlsx" 
-                  hidden 
-                />
-              </div>
-              <ul *ngFor="let participant of participants" class="list-group">
-                <li class="list-group-item">{{ participant }}</li>
-              </ul> -->
+              <app-list
+                [listParticipants]="ListParticipants"
+              ></app-list>
               
             </div>
           </div>
@@ -51,14 +40,21 @@
             <h4 class="card-title text-center">Ruleta</h4>
             <div class="d-flex justify-content-center align-items-center h-100">
                 <app-roulette 
-                  [items]="['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4', 'Opción 5', 'Opción 6', 'Opción 7', 'Opción 8', 'Opción 9', 'Opción 10', 'Opción 11', 'Opción 12', 'Opción 13', 'Opción 14', 'Opción 15', 'Opción 16']"
+                  [items]="ListParticipants"
                   [spinDuration]="10" 
-                  [stopDelay]="1">
+                  [stopDelay]="1"
+                  (winner)="winnerSelected($event)"
+                >
                 ></app-roulette>
             </div>
           </div>
         </div>
     </div>
   </div>
-  
+  <app-messages #messageComponent></app-messages>
 </div>
+
+
+@if(isLoading) {
+  <app-loading></app-loading>
+}

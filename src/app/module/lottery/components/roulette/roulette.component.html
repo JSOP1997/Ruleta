@@ -6,18 +6,16 @@
         
             <!-- Mostrar las personas dentro de la ruleta -->
             <div *ngFor="let item of items; let i = index" 
-                 class="roulette-item">
-              {{ item }}
+                 class="roulette-item"
+                 [class.selected]="i === currentIndex">
+              {{ item.nombre }}
             </div>
         </div>
     </div>
     <div *ngIf="selectedPerson" class="result col-12">
-        <p><strong>¡Seleccionado!</strong> {{ selectedPerson }}</p>
+        <p><strong>¡Ganador!</strong> {{ selectedPerson.nombre }} - {{selectedPerson.cedula}}</p>
     </div>
     <div class="col-12 mb-3 text-center">
         <button class="btn btn-primary" (click)="startSpin()">Girar</button>
     </div>
-      
-    
 </div>
-  

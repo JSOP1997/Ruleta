@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
+import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, Input, output } from '@angular/core';
 import { SwiperModule } from 'swiper/types';
+import { LotteryParticipant } from '../../interface/lottery.interface';
 
 @Component({
   selector: 'app-roulette',
@@ -10,12 +11,13 @@ import { SwiperModule } from 'swiper/types';
   styleUrl: './roulette.component.scss'
 })
 export class RouletteComponent {
-  @Input() items: string[] = []; // Personas que estarán en la ruleta
-  @Input() spinDuration: number = 3; // Duración del giro rápido (en segundos)
+  @Input() items: LotteryParticipant[] = []; // Personas que estarán en la ruleta
+  @Input() spinDuration: number = 20; // Duración del giro rápido (en segundos)
   @Input() stopDelay: number = 1; // Tiempo de retardo después de que la ruleta se detiene
   isSpinning: boolean = false;
-  selectedPerson: string | null = null;
+  selectedPerson: LotteryParticipant | null = null;
   currentIndex: number = 0;
+  winner = output<LotteryParticipant>();
 
   spinClass: string = '';
   private spinInterval: any;
@@ -35,13 +37,11 @@ export class RouletteComponent {
     // Anima el giro
     this.spinInterval = setInterval(() => {
       this.currentRotation += rotationSpeed;
-      document.querySelector('.roulette')?.setAttribute('style', `transform: translateY(-${this.currentRotation}%)`);
-      
       if (this.currentRotation >= numberOfSpins * 100) {
         clearInterval(this.spinInterval);
         this.stopSpin();
       }
-    }, 100);
+    }, 500);
   }
 
   private stopSpin() {
@@ -50,7 +50,15 @@ export class RouletteComponent {
       // Selección aleatoria
       const randomIndex = Math.floor(Math.random() * this.items.length); 
       this.selectedPerson = this.items[randomIndex];
-      this.currentIndex = randomIndex; // Guardamos el índice para el marcador
+      this.currentIndex = randomIndex;
+
+      this.winner.emit(this.selectedPerson);
+
+      // Calcular la posición final
+      const itemHeight = 100 / this.items.length;
+      const finalPosition = randomIndex * itemHeight;
+      document.querySelector('.roulette')?.setAttribute('style', `transform: translateY(-${finalPosition}%)`);
+
       this.isSpinning = false;
       this.spinClass = '';
     }, this.stopDelay * 1000);
@@ -61,5 +69,6 @@ export class RouletteComponent {
     this.selectedPerson = null;
     this.currentRotation = 0;
     this.currentIndex = 0;
+    document.querySelector('.roulette')?.setAttribute('style', `transform: translateY(0)`);
   }
 }

@@ -1,1 +1,20 @@
-<p>messages works!</p>
+<div *ngIf="isVisible" class="message-overlay" (click)="closeMessage()"></div>
+<div *ngIf="isVisible" class="message-popup" [ngClass]="{type: true, 'gif-modal': gifUrl}">
+    <div class="message-header d-flex justify-content-end">
+        <button class="close-button" (click)="closeMessage()">
+            <i class="pi pi-times" style="font-size: 1rem"></i>
+        </button>
+    </div>
+    <div class="message-body text-center">
+        <span class="message-icon" *ngIf="!gifUrl" [ngClass]="type">
+            <i *ngIf="type === 'success'" class="pi pi-check"></i>
+            <i *ngIf="type === 'warning'" class="pi pi-exclamation-triangle"></i>
+            <i *ngIf="type === 'error'" class="pi pi-times"></i>
+            <i *ngIf="type === 'info'" class="pi pi-info-circle"></i>
+        </span>
+        <img *ngIf="gifUrl" [src]="gifUrl" alt="Message GIF" class="message-gif">
+        <h5>{{ title }}</h5>
+        <p>{{ content }}</p>
+    </div>
+    <ng-particles *ngIf="!gifUrl" [options]="particlesOptions"></ng-particles>
+</div>

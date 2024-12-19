@@ -1,1 +1,13 @@
-<p>list works!</p>
+<div class="list-container">
+  <div class="row">
+    @for (item of listParticipants(); track $index) {
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title text-center">{{item.nombre}} - {{item.cedula}}</h6>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

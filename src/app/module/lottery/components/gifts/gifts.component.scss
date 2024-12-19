@@ -1,0 +1,15 @@
+.card {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card:hover {
+  background-color: #e0e0e0; // Hover color
+}
+
+.card.selected {
+    background: rgba(112, 155, 239, 0.5);
+    color: #294994;
+    font-weight: 600;
+    box-shadow: 0px 2px 5px 0px rgb(195 195 195);
+}

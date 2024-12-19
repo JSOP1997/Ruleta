@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { LotteryParticipant } from '../../interface/lottery.interface';
 
 @Component({
   selector: 'app-list',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './list.component.scss'
 })
 export class ListComponent {
-
+  listParticipants = input<LotteryParticipant[]>([]);
 }

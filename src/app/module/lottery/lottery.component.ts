@@ -1,25 +1,44 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import * as XLSX from 'xlsx';
 import { RouletteComponent } from './components/roulette/roulette.component';
+import { GiftsComponent } from './components/gifts/gifts.component';
+import { MessagesComponent } from '../../common/components/messages/messages.component';
+import { LotteryService } from './services/lottery.service';
+import { LotteryParticipant } from './interface/lottery.interface';
+import { ListComponent } from './components/list/list.component';
 
 @Component({
   selector: 'app-lottery',
   imports: [
     CommonModule,
-    RouletteComponent
+    RouletteComponent,
+    GiftsComponent,
+    MessagesComponent,
+    ListComponent
   ],
   templateUrl: './lottery.component.html',
-  styleUrl: './lottery.component.scss'
+  styleUrl: './lottery.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class LotteryComponent {
   participants: any[] = [];
-  winner: string | null = null;
+  winner: LotteryParticipant | null = null;
   isRolling: boolean = false;
+  spinDuration: number = 10; // Default spin duration
+
+  isLoading: boolean = false;
 
   @ViewChild('fileInput') fileInput!: ElementRef;
-  fileName: string | null = null; // Para mostrar el nombre del archivo
+  @ViewChild('messageComponent') messageComponent!: MessagesComponent;
+  fileName: string | null = null;
+  ListParticipants!: LotteryParticipant[];
+  type!: string;
+
+  constructor(
+    private lotteryService: LotteryService
+  ) {}
 
   triggerFileInput(): void {
     this.fileInput.nativeElement.click(); // Abre el input oculto al hacer clic en el área
@@ -42,24 +61,33 @@ export class LotteryComponent {
     }
   }
 
-
-  startRaffle(): void {
-    if (this.participants.length > 0) {
-      this.isRolling = true;
-      this.winner = null;
-      this.rollRaffle();
+  async winnerSelected(winner: LotteryParticipant) {
+    this.winner = winner;
+    
+    try {
+      this.isLoading = true;
+      const data = await this.lotteryService.registerWinner(winner.cedula, this.type);
+      this.messageComponent.showMessage('success', 'Ganador seleccionado', `El ganador es: ${winner.nombre} - ${winner.cedula}`, './gif.gif');
+      this.getLotteryType(this.type);
+    } catch (error) {
+      this.isLoading = false;
+      this.messageComponent.showMessage('error', 'Error al seleccionar el ganador', 'Ocurrió un error al seleccionar el ganador');
+    } finally {
+      this.isLoading = false;
     }
   }
 
-  rollRaffle(): void {
-    if (this.isRolling) {
-      const randomIndex = Math.floor(Math.random() * this.participants.length);
-      this.winner = this.participants[randomIndex];
-      this.participants = this.participants.filter((element) => this.winner != element)
-      // Stop the animation after a short delay
-      setTimeout(() => {
-        this.isRolling = false;
-      }, 3000);
+  async getLotteryType(type: string) {
+    this.type = type;
+    try {
+      this.isLoading = true;
+      const data: LotteryParticipant[]  = await this.lotteryService.getTypeLottery(type);
+      this.ListParticipants = data;
+    } catch (error: any) {
+      console.error('Error al seleccionar el tipo de sorteo:', error);
+      this.isLoading = false;
+    } finally {
+      this.isLoading = false;
     }
   }
 }
