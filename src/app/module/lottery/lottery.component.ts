@@ -67,7 +67,7 @@ export class LotteryComponent {
     try {
       this.isLoading = true;
       const data = await this.lotteryService.registerWinner(winner.cedula, this.type);
-      this.messageComponent.showMessage('success', 'Ganador seleccionado', `El ganador es: ${winner.nombre} - ${winner.cedula}`, './gif.gif');
+      this.messageComponent.showMessage('success', 'Ganador seleccionado', `El ganador es: ${winner.nombre}`, './gif.gif');
       this.getLotteryType(this.type);
     } catch (error) {
       this.isLoading = false;
