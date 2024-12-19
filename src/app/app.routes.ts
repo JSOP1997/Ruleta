@@ -10,6 +10,10 @@ export const routes: Routes = [
         loadComponent: () => import('./module/register/register.component').then( c => c.RegisterComponent)
     },
     {
+        path: 'new-register',
+        loadComponent: () => import('./module/new-user/new-user.component').then( c => c.NewUserComponent)
+    },
+    {
         path: '**',
         redirectTo: '/register'
     },
