@@ -13,7 +13,7 @@ export class RegisterService {
 
   registerUser(document: string): Promise<registerUserResponse> {
     try {
-      return lastValueFrom<registerUserResponse>(this.http.get<registerUserResponse>(`${environment.API}funcionarios/cedula/${document}`));
+      return lastValueFrom<registerUserResponse>(this.http.post<registerUserResponse>(`${environment.API}funcionarios/llego/${document}`, {document}));
     } catch (error) {
       return Promise.reject(error);
     }
