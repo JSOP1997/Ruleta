@@ -23,7 +23,7 @@ FROM nginx:alpine
 COPY --from=build /app/dist/ruleta-akpo/browser /usr/share/nginx/html
 
 # Copiar el archivo de configuración personalizado a nginx.conf
-RUN mv /usr/share/nginx/html/index.csr.html /usr/share/nginx/html/index.html
+# RUN mv /usr/share/nginx/html/index.csr.html /usr/share/nginx/html/index.html
 
 # Exponer el puerto en el que Nginx estará escuchando
 EXPOSE 80
