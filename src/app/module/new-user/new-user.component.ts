@@ -31,6 +31,7 @@ export class NewUserComponent {
     try {
       this.isLoading = true;
       const data = await this.newUserService.createUser(formData);
+      this.messageComponent.showMessage('success', 'Usuario registrado', `El usuario ${formData.nombre} ha sido registrado con éxito`);
     } catch (error) {
       this.isLoading = false;
       this.messageComponent.showMessage('error', 'Error al registrar el usuario', 'Ha ocurrido un error al registrar el usuario, por favor intenta nuevamente');
